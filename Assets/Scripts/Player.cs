@@ -16,11 +16,6 @@ public class Player : MonoBehaviour
         body2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        Debug.Log(body2d.velocity);
-    }
-
     private void Run(bool run)
     {
         Vector3 targetVelocity;
