@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -7,12 +8,31 @@ public class Player : MonoBehaviour
     public float jumpPower;
     public float overlapRadius;
     public LayerMask groundLayer;
+    public Action playerHitSpike;
+    [SerializeField]
+    private int livesCount;
+    public int LivesCount
+    {
+        set
+        {
+            if (value < LivesCount)
+            {
+                playerHitSpike?.Invoke();
+            }
+            livesCount = value;
+        }
+        get
+        {
+            return livesCount;
+        }
+    }
     private Rigidbody2D body2d;
 
     void Start()
     {
-        InputManager.Instance.playerJumps += Jump;
-        InputManager.Instance.playerRuns += Run;
+        InputManager.Instance.jumpPressed += Jump;
+        InputManager.Instance.runPressed += Run;
+        LivesCount = 3;
         body2d = GetComponent<Rigidbody2D>();
     }
 
@@ -51,6 +71,11 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void OnHitBySpike()
+    {
+        LivesCount--;
     }
 
     private void OnDrawGizmos()

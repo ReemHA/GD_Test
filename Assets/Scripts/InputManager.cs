@@ -3,8 +3,8 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-    public Action<bool> playerRuns;
-    public Action playerJumps;
+    public Action<bool> runPressed;
+    public Action jumpPressed;
     public static InputManager Instance;
 
     void Awake()
@@ -24,25 +24,25 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
-            OnPlayerRuns(true);
+            OnRunPressed(true);
         }
         if (Input.GetKeyUp(KeyCode.R))
         {
-            OnPlayerRuns(false);
+            OnRunPressed(false);
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            OnPlayerJumps();
+            OnJumpPressed();
         }
     }
 
-    private void OnPlayerJumps()
+    private void OnJumpPressed()
     {
-        playerJumps?.Invoke();
+        jumpPressed?.Invoke();
     }
 
-    private void OnPlayerRuns(bool buttonPressed)
+    private void OnRunPressed(bool buttonPressed)
     {
-        playerRuns?.Invoke(buttonPressed);
+        runPressed?.Invoke(buttonPressed);
     }
 }
