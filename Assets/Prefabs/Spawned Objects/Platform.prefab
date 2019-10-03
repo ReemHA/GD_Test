@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3890710474670107297}
   - component: {fileID: 3890710474670107296}
   - component: {fileID: 3890710474670107299}
+  - component: {fileID: 4052339390404985062}
   m_Layer: 8
   m_Name: Platform
   m_TagString: Spawned
@@ -107,3 +108,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.4, y: 6.4}
   m_EdgeRadius: 0
+--- !u!114 &4052339390404985062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890710474670107298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec049784ba29d141890b0d03827d033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnLimit: 3
+  respawn: 1
+  spawnRate: 0.5
+  startTime: 0

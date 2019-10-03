@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Spawned
+  - Platform
+  - Coin
+  - Spike
   layers:
   - Default
   - TransparentFX

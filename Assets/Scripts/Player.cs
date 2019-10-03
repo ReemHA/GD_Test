@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float jumpPower;
     public float overlapRadius;
     public LayerMask groundLayer;
+    public Action<int> playerCollectCoin;
     public Action playerHitSpike;
     [SerializeField]
     private int livesCount;
@@ -26,7 +27,35 @@ public class Player : MonoBehaviour
             return livesCount;
         }
     }
+    [SerializeField]
+    private int coinsCollected;
+    public int CoinsCollected
+    {
+        set
+        {
+            coinsCollected = value;
+            playerCollectCoin?.Invoke(coinsCollected);
+        }
+        get
+        {
+            return coinsCollected;
+        }
+    }
     private Rigidbody2D body2d;
+    public static Player Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     void Start()
     {
@@ -71,11 +100,6 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public void OnHitBySpike()
-    {
-        LivesCount--;
     }
 
     private void OnDrawGizmos()

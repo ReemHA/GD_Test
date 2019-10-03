@@ -2,27 +2,25 @@
 
 public class PlatformSpawner : Spawner
 {
-    private int latestSpawnedObjectIndex;
-    private Vector2 referencePosition;
-
     new void Start()
     {
-        SetTagObjectsToBeSpawned();
         base.Start();
-        referencePosition = mainCamera.transform.position;
-        referencePosition.y -= camHeight / 2;
-        spawnPosition = referencePosition;
+        objectToBeSpawned.referencePosition = mainCamera.transform.position;
+        objectToBeSpawned.referencePosition.y -= camHeight / 2;
+        objectToBeSpawned.spawnPosition = objectToBeSpawned.referencePosition;
         latestSpawnedObjectIndex = 0;
+        CreatePool(objectToBeSpawned.spawnLimit, objectToBeSpawned);
+        InvokeRepeating("Spawn", objectToBeSpawned.startTime, objectToBeSpawned.spawnRate);
     }
 
-    public override void Spawn()
+    protected override void Spawn()
     {
         for (int i = 0; i < spawnedObjects.Count; i++)
         {
-            if (!spawnedObjects[i].activeInHierarchy)
+            if (!spawnedObjects[i].gameObject.activeInHierarchy)
             {
-                spawnedObjects[i].transform.position = spawnPosition;
-                spawnedObjects[i].SetActive(true);
+                spawnedObjects[i].transform.position = objectToBeSpawned.spawnPosition;
+                spawnedObjects[i].gameObject.SetActive(true);
                 latestSpawnedObjectIndex = i;
                 break;
             }
@@ -30,9 +28,9 @@ public class PlatformSpawner : Spawner
             {
                 if (latestSpawnedObjectIndex == i)
                 {
-                    referencePosition = spawnedObjects[i].transform.position;
-                    spawnPosition = referencePosition;
-                    spawnPosition.x += camWidth;
+                    objectToBeSpawned.referencePosition = spawnedObjects[i].transform.position;
+                    objectToBeSpawned.spawnPosition = objectToBeSpawned.referencePosition;
+                    objectToBeSpawned.spawnPosition.x += camWidth;
                 }
             }
         }
@@ -41,6 +39,6 @@ public class PlatformSpawner : Spawner
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(referencePosition, 2);
+        Gizmos.DrawSphere(objectToBeSpawned.referencePosition, 2);
     }
 }
