@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Spawner : MonoBehaviour
@@ -13,9 +14,26 @@ public abstract class Spawner : MonoBehaviour
     public void Start()
     {
         mainCamera = Camera.main;
-        camHeight = 2 * mainCamera.orthographicSize;
-        camWidth = mainCamera.aspect * camHeight;
-        spawnedObjects = new List<SpawnedObject>();
+        GameManager.Instance.gameStateChanged += OnGameStateChanged;
+    }
+
+    protected virtual void OnGameStateChanged(GameStates gameState)
+    {
+        switch (gameState)
+        {
+            case GameStates.GameStart:
+                break;
+            case GameStates.InGame:
+                camHeight = 2 * mainCamera.orthographicSize;
+                camWidth = mainCamera.aspect * camHeight;
+                spawnedObjects = new List<SpawnedObject>();
+                break;
+            case GameStates.GameEnds:
+                spawnedObjects = new List<SpawnedObject>();
+                break;
+            default:
+                break;
+        }
     }
 
     public void CreatePool(int objectCount, SpawnedObject objectToBeSpawned)

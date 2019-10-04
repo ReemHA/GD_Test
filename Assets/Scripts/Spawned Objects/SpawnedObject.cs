@@ -22,5 +22,22 @@ public class SpawnedObject : MonoBehaviour
     private void Awake()
     {
         gameObject.tag = SPAWNED_OBJECT_TAG.ToString();
+        GameManager.Instance.gameStateChanged += OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(GameStates gameState)
+    {
+        switch (gameState)
+        {
+            case GameStates.GameStart:
+                break;
+            case GameStates.InGame:
+                break;
+            case GameStates.GameEnds:
+                Destroy(this.gameObject);
+                break;
+            default:
+                break;
+        }
     }
 }

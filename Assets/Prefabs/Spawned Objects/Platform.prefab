@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3890710474670107296}
   - component: {fileID: 3890710474670107299}
   - component: {fileID: 4052339390404985062}
+  - component: {fileID: 4078488479371723271}
   m_Layer: 8
   m_Name: Platform
   m_TagString: Spawned
@@ -124,3 +125,27 @@ MonoBehaviour:
   respawn: 1
   spawnRate: 0.5
   startTime: 0
+  spawnPosition: {x: 0, y: 0}
+  referencePosition: {x: 0, y: 0}
+  SPAWNED_OBJECT_TAG: 0
+--- !u!50 &4078488479371723271
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890710474670107298}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

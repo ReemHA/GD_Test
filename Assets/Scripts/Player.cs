@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float runSpeed;
     public float jumpPower;
     public float overlapRadius;
+    public Transform resetTransform;
     public LayerMask groundLayer;
     public Action<int> playerCollectedCoin;
     public Action<int> playerLivesChanged;
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
     {
         InputManager.Instance.jumpPressed += Jump;
         InputManager.Instance.runPressed += Run;
+        GameManager.Instance.gameStateChanged += OnGameStateChanged;
         LivesCount = 3;
         body2d = GetComponent<Rigidbody2D>();
     }
@@ -86,6 +88,30 @@ public class Player : MonoBehaviour
         {
             body2d.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
         }
+    }
+
+    private void OnGameStateChanged(GameStates gameState)
+    {
+        switch (gameState)
+        {
+            case GameStates.GameStart:
+                break;
+            case GameStates.InGame:
+                LivesCount = 3;
+                CoinsCollected = 0;
+                body2d.velocity = Vector2.zero;
+                ResetPosition();
+                break;
+            case GameStates.GameEnds:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ResetPosition()
+    {
+        transform.position = resetTransform.position;
     }
 
     private bool IsOnGround()

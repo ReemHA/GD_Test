@@ -3,7 +3,7 @@
 public class ItemSpawner : Spawner
 {
     public SpawnedObject[] objectsToBeSpawned;
-    public float yOffset = -1;
+    public float yOffset = -8.6f;
     public float xOffset;
     private int randomIndex;
     private int randomIndexOld;
@@ -11,6 +11,29 @@ public class ItemSpawner : Spawner
     new void Start()
     {
         base.Start();
+    }
+
+    protected override void OnGameStateChanged(GameStates gameState)
+    {
+        base.OnGameStateChanged(gameState);
+        switch (gameState)
+        {
+            case GameStates.GameStart:
+                break;
+            case GameStates.InGame:
+                SetSpawnedObjectsPositions();
+                Invoke("Spawn", 0);
+                break;
+            case GameStates.GameEnds:
+                CancelInvoke("Spawn");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SetSpawnedObjectsPositions()
+    {
         for (int i = 0; i < objectsToBeSpawned.Length; i++)
         {
             objectToBeSpawned = objectsToBeSpawned[i];
@@ -19,7 +42,6 @@ public class ItemSpawner : Spawner
             objectToBeSpawned.spawnPosition = objectToBeSpawned.referencePosition;
             CreatePool(objectToBeSpawned.spawnLimit, objectToBeSpawned);
         }
-        Invoke("Spawn", 0);
     }
 
     protected override void Spawn()
@@ -31,17 +53,7 @@ public class ItemSpawner : Spawner
             spawnedObjects[randomIndex].transform.position = objectToBeSpawned.spawnPosition;
             spawnedObjects[randomIndex].gameObject.SetActive(true);
             latestSpawnedObjectIndex = randomIndex;
-            xOffset = 50 * Random.Range(1, 4);
-        }
-        else
-        {
-            if (latestSpawnedObjectIndex == randomIndexOld)
-            {
-                objectToBeSpawned.referencePosition.x = spawnedObjects[randomIndex].transform.position.x;
-                objectToBeSpawned.spawnPosition = objectToBeSpawned.referencePosition;
-                objectToBeSpawned.spawnPosition.x += xOffset;
-                xOffset = 50 * Random.Range(1, 4);
-            }
+            xOffset = 50 * Random.Range(1.5f, 3f);
         }
         randomIndex = GetRandomIndex();
         Invoke("Spawn", objectToBeSpawned.spawnRate);
@@ -56,6 +68,6 @@ public class ItemSpawner : Spawner
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(objectToBeSpawned.spawnPosition, 2);
+       // Gizmos.DrawSphere(objectToBeSpawned.spawnPosition, 2);
     }
 }

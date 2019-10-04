@@ -5,12 +5,35 @@ public class PlatformSpawner : Spawner
     new void Start()
     {
         base.Start();
+    }
+
+
+    protected override void OnGameStateChanged(GameStates gameState)
+    {
+        base.OnGameStateChanged(gameState);
+        switch (gameState)
+        {
+            case GameStates.GameStart:
+                break;
+            case GameStates.InGame:
+                SetSpawnedObjectsPositions();
+                InvokeRepeating("Spawn", objectToBeSpawned.startTime, objectToBeSpawned.spawnRate);
+                break;
+            case GameStates.GameEnds:
+                CancelInvoke("Spawn");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SetSpawnedObjectsPositions()
+    {
         objectToBeSpawned.referencePosition = mainCamera.transform.position;
         objectToBeSpawned.referencePosition.y -= camHeight / 2;
         objectToBeSpawned.spawnPosition = objectToBeSpawned.referencePosition;
         latestSpawnedObjectIndex = 0;
         CreatePool(objectToBeSpawned.spawnLimit, objectToBeSpawned);
-        InvokeRepeating("Spawn", objectToBeSpawned.startTime, objectToBeSpawned.spawnRate);
     }
 
     protected override void Spawn()

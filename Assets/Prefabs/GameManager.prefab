@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
-  gameTime: 10
+  gameTime: 60
   countDownTimer: 0
   gameWin: 0
