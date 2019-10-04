@@ -20,6 +20,11 @@ public class InputManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Start()
+    {
+        UIManager.Instance.gameScreenChanged += OnGameScreenChange;
+    }
+
     void Update()
     {
         if (Input.GetKey(KeyCode.R))
@@ -45,4 +50,30 @@ public class InputManager : MonoBehaviour
     {
         runPressed?.Invoke(buttonPressed);
     }
+
+    private void OnGameScreenChange(GameScreens gameScreen)
+    {
+        switch (gameScreen)
+        {
+            case GameScreens.OnStart:
+                enabled = false;
+                break;
+            case GameScreens.Gameplay:
+                enabled = true;
+                break;
+            case GameScreens.InShop:
+                enabled = false;
+                break;
+            case GameScreens.GameOver:
+                enabled = false;
+                break;
+            case GameScreens.GamePause:
+                enabled = false;
+                break;
+            default:
+                break;
+        }
+
+    }
+
 }

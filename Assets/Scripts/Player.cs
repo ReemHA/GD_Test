@@ -8,19 +8,16 @@ public class Player : MonoBehaviour
     public float jumpPower;
     public float overlapRadius;
     public LayerMask groundLayer;
-    public Action<int> playerCollectCoin;
-    public Action playerHitSpike;
+    public Action<int> playerCollectedCoin;
+    public Action<int> playerLivesChanged;
     [SerializeField]
     private int livesCount;
     public int LivesCount
     {
         set
         {
-            if (value < LivesCount)
-            {
-                playerHitSpike?.Invoke();
-            }
             livesCount = value;
+            playerLivesChanged?.Invoke(livesCount);
         }
         get
         {
@@ -34,7 +31,7 @@ public class Player : MonoBehaviour
         set
         {
             coinsCollected = value;
-            playerCollectCoin?.Invoke(coinsCollected);
+            playerCollectedCoin?.Invoke(coinsCollected);
         }
         get
         {

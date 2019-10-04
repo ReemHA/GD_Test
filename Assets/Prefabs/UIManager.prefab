@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2644137465140537520
+--- !u!1 &2360622274389199034
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2644137465140537521}
-  - component: {fileID: 2644137465140537526}
+  - component: {fileID: 2360622274389199033}
+  - component: {fileID: 2360622274389199032}
   m_Layer: 0
-  m_Name: PlatformSpawner
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2644137465140537521
+--- !u!4 &2360622274389199033
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2644137465140537520}
+  m_GameObject: {fileID: 2360622274389199034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2644137465140537526
+--- !u!114 &2360622274389199032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2644137465140537520}
+  m_GameObject: {fileID: 2360622274389199034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00189302d44abca43b0a1140633d7c1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 208191bfb0427cb458f3fb1e8e1ad775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToBeSpawned: {fileID: 4052339390404985062, guid: 75f8fc8ecc1029b439fc4db5daa59e10,
-    type: 3}
-  spawnedObjects: []
+  canvases:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  livesCount: {fileID: 0}
+  coinsCount: {fileID: 0}
+  gameTime: {fileID: 0}
+  shopLivesCount: {fileID: 0}
+  shopCoinsCount: {fileID: 0}
+  buyButton: {fileID: 0}
+  gameScreen: 0
