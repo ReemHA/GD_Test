@@ -53,7 +53,7 @@ public class ItemSpawner : Spawner
             spawnedObjects[randomIndex].transform.position = objectToBeSpawned.spawnPosition;
             spawnedObjects[randomIndex].gameObject.SetActive(true);
             latestSpawnedObjectIndex = randomIndex;
-            xOffset = 50 * Random.Range(1.5f, 3f);
+            xOffset = 3 * Random.Range(1.5f, 3f);
         }
         randomIndex = GetRandomIndex();
         Invoke("Spawn", objectToBeSpawned.spawnRate);

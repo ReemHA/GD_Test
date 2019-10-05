@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
         {
             OnRunPressed(false);
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             OnJumpPressed();
         }
