@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int maxLives = 3;
+    public int maxCoins = 10;
+    public float maxRunSpeed = 4;
     public Transform playerFeet;
-    public float runSpeed;
     public float jumpPower;
     public float overlapRadius;
     public Transform resetTransform;
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour
     }
     private Rigidbody2D body2d;
     public static Player Instance;
-
+    private float runSpeed;
     private void Awake()
     {
         if (Instance == null)
@@ -60,33 +62,26 @@ public class Player : MonoBehaviour
         InputManager.Instance.jumpPressed += Jump;
         InputManager.Instance.runPressed += Run;
         GameManager.Instance.gameStateChanged += OnGameStateChanged;
-        LivesCount = 3;
+        LivesCount = maxLives;
         body2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Run(bool run)
+    private void Run()
     {
         Vector3 targetVelocity;
         Vector3 velocity = Vector2.zero;
-        if (run)
-        {
-            targetVelocity = new Vector2(runSpeed, body2d.velocity.y);
-            body2d.velocity = Vector3.SmoothDamp(body2d.velocity, targetVelocity, ref velocity, Time.fixedDeltaTime);
-        }
-        else
-        {
-            targetVelocity = new Vector2(0, body2d.velocity.y);
-            body2d.velocity = targetVelocity;
-        }
-
+        targetVelocity = new Vector2(runSpeed, body2d.velocity.y);
+        body2d.velocity = Vector3.SmoothDamp(body2d.velocity, targetVelocity, ref velocity, Time.fixedDeltaTime * maxRunSpeed);
+        //runSpeed = Mathf.Lerp(runSpeed, maxRunSpeed, Time.fixedDeltaTime * );
     }
 
     private void Jump()
     {
         // to avoid a double jump, check first of the player is on ground.
+        // multiply the jump power with player height
         if (IsOnGround())
         {
-            body2d.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+            body2d.AddForce(new Vector2(0, jumpPower * transform.localScale.y), ForceMode2D.Impulse);
         }
     }
 
@@ -97,12 +92,16 @@ public class Player : MonoBehaviour
             case GameStates.GameStart:
                 break;
             case GameStates.InGame:
-                LivesCount = 3;
-                CoinsCollected = 0;
                 body2d.velocity = Vector2.zero;
                 ResetPosition();
                 break;
             case GameStates.GameEnds:
+                if (!GameManager.Instance.gameWin)
+                {
+                    // reset lives and coins
+                    LivesCount = maxLives;
+                    CoinsCollected = 0;
+                }
                 break;
             default:
                 break;

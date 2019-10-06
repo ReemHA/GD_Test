@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3306457381621185248}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64.9, y: 21.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -95,12 +95,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6429876038e39bf4db99315cd52f9f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnLimit: 50
+  spawnLimit: 10
   respawn: 1
   spawnRate: 0.5
   startTime: 0
-  spawnPosition: {x: 124.769485, y: 20}
-  referencePosition: {x: -64.9, y: 20}
+  yOffset: 19.783
+  xOffset: 0
+  spawnPosition: {x: -64.9, y: 19.802}
+  referencePosition: {x: -64.9, y: 19.802}
   SPAWNED_OBJECT_TAG: 2
 --- !u!58 &3306457381621185251
 CircleCollider2D:

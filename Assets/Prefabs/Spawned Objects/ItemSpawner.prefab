@@ -47,6 +47,5 @@ MonoBehaviour:
   spawnedObjects: []
   objectsToBeSpawned:
   - {fileID: 3631491022932867767, guid: 7208ef35a6b2f1b49a243870621a751f, type: 3}
-  - {fileID: 8598170323227497051, guid: 2bc03faf591bc4c4590bd8fb2d5705c1, type: 3}
-  yOffset: -2.6
-  xOffset: 0
+  - {fileID: 3306457381621185250, guid: 2bc03faf591bc4c4590bd8fb2d5705c1, type: 3}
+  - {fileID: 4369745123470659563, guid: a6f9863f4691e7b4d8738ce2a8305f55, type: 3}

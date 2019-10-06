@@ -3,7 +3,7 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-    public Action<bool> runPressed;
+    public Action runPressed;
     public Action jumpPressed;
     public static InputManager Instance;
 
@@ -29,11 +29,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
-            OnRunPressed(true);
-        }
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            OnRunPressed(false);
+            OnRunPressed();
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -46,9 +42,9 @@ public class InputManager : MonoBehaviour
         jumpPressed?.Invoke();
     }
 
-    private void OnRunPressed(bool buttonPressed)
+    private void OnRunPressed()
     {
-        runPressed?.Invoke(buttonPressed);
+        runPressed?.Invoke();
     }
 
     private void OnGameScreenChange(GameScreens gameScreen)

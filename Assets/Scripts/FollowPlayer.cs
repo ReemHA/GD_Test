@@ -6,6 +6,7 @@ public class FollowPlayer : MonoBehaviour
     public Transform cameraResetPosition;
     public Vector2 offset;
     private Vector2 newCamPosition;
+    private float lerpTime = 0.5f;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class FollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         newCamPosition = (Vector2)Player.Instance.transform.position + offset;
-        transform.position = Vector2.Lerp(transform.position, newCamPosition, 10 * Time.deltaTime);
+        lerpTime += Time.fixedDeltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, newCamPosition, lerpTime);
     }
 }

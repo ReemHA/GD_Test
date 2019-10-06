@@ -13,6 +13,8 @@ public class SpawnedObject : MonoBehaviour
     public bool respawn = true;
     public float spawnRate;
     public float startTime;
+    public float yOffset = -8.6f;
+    public float xOffset;
     [HideInInspector]
     public Vector2 spawnPosition;
     [HideInInspector]

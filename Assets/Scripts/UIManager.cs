@@ -100,7 +100,8 @@ public class UIManager : MonoBehaviour
         else if (GameScreen == GameScreens.InShop)
         {
             ShowCanvas(2);
-            buyButton.interactable = Player.Instance.CoinsCollected >= 10;
+            buyButton.interactable = Player.Instance.CoinsCollected >= Player.Instance.maxCoins && 
+                Player.Instance.LivesCount < Player.Instance.maxLives;
             OnPlayerLivesChanged(Player.Instance.LivesCount);
             OnPlayerCollectCoins(Player.Instance.CoinsCollected);
         }
