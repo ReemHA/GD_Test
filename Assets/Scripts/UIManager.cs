@@ -14,6 +14,11 @@ public enum GameScreens
 public class UIManager : MonoBehaviour
 {
     public GameObject[] canvases;
+    public Transform leaderboard;
+    public GameObject recordPrefab;
+    public Text playerNameInputField;
+    public Text highestScoreText;
+    public Text playerScoreText;
     public Text livesCount;
     public Text coinsCount;
     public Text gameTime;
@@ -62,6 +67,7 @@ public class UIManager : MonoBehaviour
     {
         gameTime.text = ((int)GameManager.Instance.countDownTimer).ToString();
     }
+
     private void OnGameStateChanged(GameStates gameState)
     {
         if (gameState == GameStates.GameStart)
@@ -92,6 +98,8 @@ public class UIManager : MonoBehaviour
         if (GameScreen == GameScreens.OnStart)
         {
             ShowCanvas(0);
+            UpdateLeaderboardUIData();
+            PopulateLeaderData();
         }
         else if (GameScreen == GameScreens.Gameplay)
         {
@@ -100,7 +108,7 @@ public class UIManager : MonoBehaviour
         else if (GameScreen == GameScreens.InShop)
         {
             ShowCanvas(2);
-            buyButton.interactable = Player.Instance.CoinsCollected >= Player.Instance.maxCoins && 
+            buyButton.interactable = Player.Instance.CoinsCollected >= Player.Instance.maxCoins &&
                 Player.Instance.LivesCount < Player.Instance.maxLives;
             OnPlayerLivesChanged(Player.Instance.LivesCount);
             OnPlayerCollectCoins(Player.Instance.CoinsCollected);
@@ -108,11 +116,52 @@ public class UIManager : MonoBehaviour
         else if (GameScreen == GameScreens.GameOver)
         {
             ShowCanvas(3);
+            if (GameManager.Instance.leaderboard.leaderboardData.records.Count == 0)
+            {
+                highestScoreText.text = "0";
+            }
+            else
+            {
+                highestScoreText.text = GameManager.Instance.leaderboard
+                    .leaderboardData.records[0].coins > Player.Instance.CoinsCollected ?
+                    GameManager.Instance.leaderboard
+                    .leaderboardData.records[0].coins.ToString() :
+                    Player.Instance.CoinsCollected.ToString();
+            }
+            playerScoreText.text = Player.Instance.CoinsCollected.ToString();
+            playerNameInputField.text = "";
         }
         // GameState == game pause
         else
         {
             ShowCanvas(4);
+        }
+    }
+
+    private void UpdateLeaderboardUIData()
+    {
+        for (int i = 2; i < leaderboard.childCount; i++)
+        {
+            Destroy(leaderboard.GetChild(i).gameObject);
+        }
+    }
+
+    private void PopulateLeaderData()
+    {
+        var records = GameManager.Instance.leaderboard.leaderboardData.records;
+        for (int i = 0; i < records.Count; i++)
+        {
+            // check that the record is not empty
+            if (!records[i].name.Equals(""))
+            {
+                var recordGO = Instantiate(recordPrefab);
+                recordGO.transform.parent = leaderboard;
+                recordGO.transform.localScale /= recordGO.transform.localScale.x;
+                // populate name
+                recordGO.transform.GetChild(0).GetComponent<Text>().text = records[i].name;
+                // populate score
+                recordGO.transform.GetChild(1).GetComponent<Text>().text = records[i].coins.ToString();
+            }
         }
     }
 
@@ -153,7 +202,6 @@ public class UIManager : MonoBehaviour
         {
             GameScreen = GameScreens.Gameplay;
         }
-
     }
 
     public void BuyButtonPressed()
@@ -176,6 +224,11 @@ public class UIManager : MonoBehaviour
 
     public void SaveDataButtonPressed()
     {
+        Record record = new Record();
+        record.name = playerNameInputField.text;
+        record.coins = Player.Instance.CoinsCollected;
+        Player.Instance.CoinsCollected = 0;
+        GameManager.Instance.leaderboard.AddToRecords(record);
         GameScreen = GameScreens.OnStart;
     }
 }

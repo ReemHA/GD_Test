@@ -22,7 +22,7 @@ public class ItemSpawner : Spawner
                 Invoke("Spawn", 0);
                 break;
             case GameStates.GameEnds:
-                CancelInvoke("Spawn");
+                CancelInvoke();
                 break;
             default:
                 break;

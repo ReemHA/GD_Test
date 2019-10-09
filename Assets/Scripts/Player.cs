@@ -43,7 +43,9 @@ public class Player : MonoBehaviour
     }
     private Rigidbody2D body2d;
     public static Player Instance;
-    private float runSpeed;
+    private float runSpeed = 4;
+    private Vector3 velocity = Vector2.zero;
+
     private void Awake()
     {
         if (Instance == null)
@@ -69,7 +71,6 @@ public class Player : MonoBehaviour
     private void Run()
     {
         Vector3 targetVelocity;
-        Vector3 velocity = Vector2.zero;
         targetVelocity = new Vector2(runSpeed, body2d.velocity.y);
         body2d.velocity = Vector3.SmoothDamp(body2d.velocity, targetVelocity, ref velocity, Time.fixedDeltaTime * maxRunSpeed);
         //runSpeed = Mathf.Lerp(runSpeed, maxRunSpeed, Time.fixedDeltaTime * );
@@ -100,7 +101,7 @@ public class Player : MonoBehaviour
                 {
                     // reset lives and coins
                     LivesCount = maxLives;
-                    CoinsCollected = 0;
+                   // CoinsCollected = 0;
                 }
                 break;
             default:

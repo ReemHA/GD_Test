@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public int gameTime = 60;
     public float countDownTimer;
     public bool gameWin = false;
+    public Leaderboard leaderboard;
     public static GameManager Instance;
     private bool doOnce = false;
 
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
+        leaderboard = new Leaderboard();
     }
 
     private void Start()
@@ -127,5 +129,10 @@ public class GameManager : MonoBehaviour
             GameState = GameStates.GameEnds;
             gameWin = false;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        leaderboard.SaveToFile();
     }
 }
