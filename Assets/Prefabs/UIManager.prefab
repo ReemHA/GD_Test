@@ -49,6 +49,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  leaderboard: {fileID: 0}
+  recordPrefab: {fileID: 3305345829421511681, guid: 43d104d4b648ccb4682ee21a176a7779,
+    type: 3}
+  playerNameInputField: {fileID: 0}
+  highestScoreText: {fileID: 0}
+  playerScoreText: {fileID: 0}
   livesCount: {fileID: 0}
   coinsCount: {fileID: 0}
   gameTime: {fileID: 0}
