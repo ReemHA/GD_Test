@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public float overlapRadius;
     public Transform resetTransform;
     public LayerMask groundLayer;
+    public Animator coinAnimator;
+    public Animator livesAnimator;
     public Action<int> playerCollectedCoin;
     public Action<int> playerLivesChanged;
     [SerializeField]
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour
         set
         {
             livesCount = value;
+            livesAnimator.SetTrigger("LifeLost");
             playerLivesChanged?.Invoke(livesCount);
         }
         get
@@ -34,6 +37,7 @@ public class Player : MonoBehaviour
         set
         {
             coinsCollected = value;
+            coinAnimator.SetTrigger("CollectCoin");
             playerCollectedCoin?.Invoke(coinsCollected);
         }
         get
@@ -45,6 +49,7 @@ public class Player : MonoBehaviour
     public static Player Instance;
     private float runSpeed = 4;
     private Vector3 velocity = Vector2.zero;
+    private Animator animator;
 
     private void Awake()
     {
@@ -61,6 +66,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         InputManager.Instance.jumpPressed += Jump;
         InputManager.Instance.runPressed += Run;
         GameManager.Instance.gameStateChanged += OnGameStateChanged;
@@ -70,6 +76,7 @@ public class Player : MonoBehaviour
 
     private void Run()
     {
+        animator.SetTrigger("Run");
         Vector3 targetVelocity;
         targetVelocity = new Vector2(runSpeed, body2d.velocity.y);
         body2d.velocity = Vector3.SmoothDamp(body2d.velocity, targetVelocity, ref velocity, Time.fixedDeltaTime * maxRunSpeed);
@@ -83,6 +90,7 @@ public class Player : MonoBehaviour
         if (IsOnGround())
         {
             body2d.AddForce(new Vector2(0, jumpPower * transform.localScale.y), ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
         }
     }
 
