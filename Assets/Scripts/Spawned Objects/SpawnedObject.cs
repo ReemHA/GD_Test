@@ -34,8 +34,10 @@ public class SpawnedObject : MonoBehaviour
             case GameStates.GameStart:
                 break;
             case GameStates.InGame:
+                GameManager.Instance.gameStateChanged += OnGameStateChanged;
                 break;
             case GameStates.GameEnds:
+                GameManager.Instance.gameStateChanged -= OnGameStateChanged;
                 Destroy(this.gameObject);
                 break;
             default:
