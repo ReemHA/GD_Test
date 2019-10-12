@@ -118,14 +118,14 @@ public class UIManager : MonoBehaviour
             ShowCanvas(3);
             if (GameManager.Instance.leaderboard.leaderboardData.records.Count == 0)
             {
-                highestScoreText.text = "0";
+                highestScoreText.text = Player.Instance.CoinsCollected.ToString();
             }
             else
             {
                 highestScoreText.text = GameManager.Instance.leaderboard
                     .leaderboardData.records[0].coins > Player.Instance.CoinsCollected ?
                     GameManager.Instance.leaderboard
-                    .leaderboardData.records[0].coins.ToString() :
+                    .leaderboardData.records[0].coins.ToString():
                     Player.Instance.CoinsCollected.ToString();
             }
             playerScoreText.text = Player.Instance.CoinsCollected.ToString();

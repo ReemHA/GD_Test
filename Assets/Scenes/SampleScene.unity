@@ -1070,11 +1070,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5619837739559235393, guid: 80f26db82e0af2e4792b497c31037f6d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5619837739559235421, guid: 80f26db82e0af2e4792b497c31037f6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1185,11 +1180,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1199573335}
-    - target: {fileID: 8517859119390929057, guid: 80f26db82e0af2e4792b497c31037f6d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80f26db82e0af2e4792b497c31037f6d, type: 3}
 --- !u!1001 &6322736875917321737
@@ -1751,11 +1741,6 @@ PrefabInstance:
       propertyPath: livesAnimator
       value: 
       objectReference: {fileID: 1977939072}
-    - target: {fileID: 6330745060243151491, guid: fb67a7c73f284484e918dd9af337e91e,
-        type: 3}
-      propertyPath: sounds.Array.data[0].audioClip
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
 --- !u!1001 &8652243894734497984
@@ -1769,11 +1754,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GamePause
-      objectReference: {fileID: 0}
-    - target: {fileID: 2879173199132523913, guid: 7110fc528ab54d14b9f6a60d7c40ac33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8540382344186642177, guid: 7110fc528ab54d14b9f6a60d7c40ac33,
         type: 3}

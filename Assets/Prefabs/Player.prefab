@@ -5074,7 +5074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24baf14b747471c4baefd9b35064193a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRunSpeed: 4
+  accelerationRate: 2
+  maxXVelocity: 3
   playerFeet: {fileID: 5353984730645317913}
   jumpPower: 1.2
   overlapRadius: 0.21
@@ -5226,11 +5227,6 @@ PrefabInstance:
       propertyPath: sounds.Array.size
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2005271256350901716, guid: 2045b9396ad528245bf5c77a593c3066,
-        type: 3}
-      propertyPath: sounds.Array.data[0].audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1aa47b35f129a354b80bf6e050aae2be, type: 3}
     - target: {fileID: 2005271256350901716, guid: 2045b9396ad528245bf5c77a593c3066,
         type: 3}
       propertyPath: sounds.Array.data[1].name

@@ -25,7 +25,7 @@ public class Leaderboard
 {
     public LeaderboardData leaderboardData;
     private int currNonEmptyIndex = -1;
-    private string path = Path.Combine(Application.dataPath, "Data/Leaderboard.json");
+    private string path = Path.Combine(Directory.GetCurrentDirectory(), "Leaderboard.json");
 
     public Leaderboard()
     {
