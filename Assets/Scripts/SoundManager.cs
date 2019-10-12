@@ -111,9 +111,6 @@ public class SoundManager : MonoBehaviour
         {
             if (sounds[i].name == soundName)
             {
-                //audioSource.Stop();
-                //audioSource.clip = sounds[i].audioClip;
-                //audioSource.Play();
                 audioSource.PlayOneShot(sounds[i].audioClip);
             }
         }

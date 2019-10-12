@@ -1070,6 +1070,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5619837739559235393, guid: 80f26db82e0af2e4792b497c31037f6d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5619837739559235421, guid: 80f26db82e0af2e4792b497c31037f6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1180,6 +1185,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1199573335}
+    - target: {fileID: 8517859119390929057, guid: 80f26db82e0af2e4792b497c31037f6d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80f26db82e0af2e4792b497c31037f6d, type: 3}
 --- !u!1001 &6322736875917321737
@@ -1447,31 +1457,6 @@ PrefabInstance:
       propertyPath: cameraResetPosition
       value: 
       objectReference: {fileID: 1796662880}
-    - target: {fileID: 6896008085360253264, guid: 8b06c38917caa684ca6aed88760e45f1,
-        type: 3}
-      propertyPath: shakingTime
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6896008085360253264, guid: 8b06c38917caa684ca6aed88760e45f1,
-        type: 3}
-      propertyPath: shakeForce
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6896008085360253264, guid: 8b06c38917caa684ca6aed88760e45f1,
-        type: 3}
-      propertyPath: shakeForce.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6896008085360253264, guid: 8b06c38917caa684ca6aed88760e45f1,
-        type: 3}
-      propertyPath: shakeForce.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6896008085360253264, guid: 8b06c38917caa684ca6aed88760e45f1,
-        type: 3}
-      propertyPath: shakeTime
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b06c38917caa684ca6aed88760e45f1, type: 3}
 --- !u!1 &6910229636948383049 stripped
@@ -1766,35 +1751,10 @@ PrefabInstance:
       propertyPath: livesAnimator
       value: 
       objectReference: {fileID: 1977939072}
-    - target: {fileID: 3441263258063542732, guid: fb67a7c73f284484e918dd9af337e91e,
+    - target: {fileID: 6330745060243151491, guid: fb67a7c73f284484e918dd9af337e91e,
         type: 3}
-      propertyPath: overlapRadius
-      value: 0.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 5353984730645317913, guid: fb67a7c73f284484e918dd9af337e91e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.085
-      objectReference: {fileID: 0}
-    - target: {fileID: 1988511361, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1988511364, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
-      propertyPath: InitialModule.size3D
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1988511364, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1988511364, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1988511364, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.3
+      propertyPath: sounds.Array.data[0].audioClip
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb67a7c73f284484e918dd9af337e91e, type: 3}
@@ -1809,6 +1769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GamePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 2879173199132523913, guid: 7110fc528ab54d14b9f6a60d7c40ac33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8540382344186642177, guid: 7110fc528ab54d14b9f6a60d7c40ac33,
         type: 3}

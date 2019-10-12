@@ -4,7 +4,7 @@ public class CameraEffect : MonoBehaviour
 {
     public Transform cameraResetPosition;
     public Vector2 offset;
-    public float followSpeed = 0.5f;
+    public float followRateDuration = 0.5f;
     public float shakeTime = 0.5f;
     public Vector3 shakeForce;
     private Vector2 newCamPosition;
@@ -49,6 +49,6 @@ public class CameraEffect : MonoBehaviour
     {
         newCamPosition = (Vector2)Player.Instance.transform.position + offset;
         transform.position = Vector2.SmoothDamp(transform.position,
-            newCamPosition, ref velocity, followSpeed);
+            newCamPosition, ref velocity, followRateDuration);
     }
 }

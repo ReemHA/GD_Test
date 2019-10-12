@@ -195,7 +195,6 @@ public class UIManager : MonoBehaviour
     {
         if (pause)
         {
-
             GameScreen = GameScreens.GamePause;
         }
         else

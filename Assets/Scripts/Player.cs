@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public enum PlayerState
@@ -10,7 +11,8 @@ public enum PlayerState
 
 public class Player : MonoBehaviour
 {
-    public float maxRunSpeed = 4;
+    public float accelerationRate = 4;
+    public float maxXVelocity = 6;
     public Transform playerFeet;
     public float jumpPower;
     public float overlapRadius;
@@ -68,10 +70,6 @@ public class Player : MonoBehaviour
             coinsCollected = value;
             coinAnimator.SetTrigger("CollectCoin");
             playerCollectedCoin?.Invoke(coinsCollected);
-            if (true)
-            {
-
-            }
         }
         get
         {
@@ -80,10 +78,11 @@ public class Player : MonoBehaviour
     }
     private Rigidbody2D body2d;
     public static Player Instance;
-    private float runSpeed = 4;
     private Vector3 velocity = Vector2.zero;
     private Animator animator;
     private bool doOnce;
+    private Vector3 targetVelocity;
+    private float lerpTime;
 
     private void Awake()
     {
@@ -125,13 +124,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Run()
+    private void Run(bool pressed)
     {
         animator.SetTrigger("Run");
-        Vector3 targetVelocity;
-        targetVelocity = new Vector2(runSpeed, body2d.velocity.y);
-        body2d.velocity = Vector3.SmoothDamp(body2d.velocity, targetVelocity, ref velocity, Time.fixedDeltaTime * maxRunSpeed);
-        //runSpeed = Mathf.Lerp(runSpeed, maxRunSpeed, Time.fixedDeltaTime * );
+        targetVelocity = new Vector2(maxXVelocity, body2d.velocity.y);
+        lerpTime += Time.fixedDeltaTime * accelerationRate;
+        body2d.velocity = Vector3.Lerp(body2d.velocity, targetVelocity, lerpTime);
+        if (!pressed)
+        {
+            lerpTime = 0;
+        }
     }
 
     private void Jump()
