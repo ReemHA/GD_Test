@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public int gameTime = 60;
     public float countDownTimer;
     public bool gameWin = false;
+    public int maxLives = 3;
+    public int maxCoins = 10;
     public Leaderboard leaderboard;
     public static GameManager Instance;
     private bool doOnce = false;
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
         GameState = GameStates.GameStart;
         UIManager.Instance.gameScreenChanged += OnGameScreenChange;
         Player.Instance.playerLivesChanged += OnPlayerLivesChanged;
+        Player.Instance.playerCollectedCoin += OnPlayerCollectCoin;
         countDownTimer = gameTime;
     }
 
@@ -122,13 +125,26 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void OnPlayerLivesChanged(int lives)
+    private void OnPlayerLivesChanged(int lives, bool lostLife)
     {
         if (lives <= 0)
         {
-            GameState = GameStates.GameEnds;
-            gameWin = false;
+            EndGame(false);
         }
+    }
+
+    private void OnPlayerCollectCoin(int coins)
+    {
+        if (coins >= maxCoins)
+        {
+            EndGame(true);
+        }
+    }
+
+    private void EndGame(bool win)
+    {
+        gameWin = win;
+        GameState = GameStates.GameEnds;
     }
 
     private void OnApplicationQuit()

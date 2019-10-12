@@ -1,10 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
+public enum PlayerState
+{
+    Run,
+    Jump,
+    Idle
+}
+
 public class Player : MonoBehaviour
 {
-    public int maxLives = 3;
-    public int maxCoins = 10;
     public float maxRunSpeed = 4;
     public Transform playerFeet;
     public float jumpPower;
@@ -13,17 +18,41 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
     public Animator coinAnimator;
     public Animator livesAnimator;
+    public ParticleSystem dust;
     public Action<int> playerCollectedCoin;
-    public Action<int> playerLivesChanged;
+    public Action<int, bool> playerLivesChanged;
+    public Action<PlayerState> playerStateChanged;
+    [SerializeField]
+    private PlayerState playerState;
+    public PlayerState PlayerState
+    {
+        set
+        {
+            playerState = value;
+            playerStateChanged?.Invoke(playerState);
+        }
+        get
+        {
+            return playerState;
+        }
+    }
     [SerializeField]
     private int livesCount;
     public int LivesCount
     {
         set
         {
-            livesCount = value;
-            livesAnimator.SetTrigger("LifeLost");
-            playerLivesChanged?.Invoke(livesCount);
+            if (value < livesCount)
+            {
+                livesAnimator.SetTrigger("LifeLost");
+                livesCount = value;
+                playerLivesChanged?.Invoke(livesCount, true);
+            }
+            else
+            {
+                livesCount = value;
+                playerLivesChanged?.Invoke(livesCount, false);
+            }
         }
         get
         {
@@ -39,6 +68,10 @@ public class Player : MonoBehaviour
             coinsCollected = value;
             coinAnimator.SetTrigger("CollectCoin");
             playerCollectedCoin?.Invoke(coinsCollected);
+            if (true)
+            {
+
+            }
         }
         get
         {
@@ -50,6 +83,7 @@ public class Player : MonoBehaviour
     private float runSpeed = 4;
     private Vector3 velocity = Vector2.zero;
     private Animator animator;
+    private bool doOnce;
 
     private void Awake()
     {
@@ -70,8 +104,25 @@ public class Player : MonoBehaviour
         InputManager.Instance.jumpPressed += Jump;
         InputManager.Instance.runPressed += Run;
         GameManager.Instance.gameStateChanged += OnGameStateChanged;
-        LivesCount = maxLives;
+        LivesCount = GameManager.Instance.maxLives;
         body2d = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        if (body2d.velocity.y <= 0.3f && body2d.velocity.y >= -0.05f)
+        {
+            if (!doOnce)
+            {
+                dust.Play();
+                doOnce = true;
+                Invoke("StopParticles", 0.3f);
+            }
+        }
+        if (body2d.velocity == Vector2.zero)
+        {
+            PlayerState = PlayerState.Idle;
+        }
     }
 
     private void Run()
@@ -91,6 +142,7 @@ public class Player : MonoBehaviour
         {
             body2d.AddForce(new Vector2(0, jumpPower * transform.localScale.y), ForceMode2D.Impulse);
             animator.SetTrigger("Jump");
+            doOnce = false;
         }
     }
 
@@ -101,6 +153,7 @@ public class Player : MonoBehaviour
             case GameStates.GameStart:
                 break;
             case GameStates.InGame:
+                Player.Instance.CoinsCollected = 0;
                 body2d.velocity = Vector2.zero;
                 ResetPosition();
                 break;
@@ -108,8 +161,7 @@ public class Player : MonoBehaviour
                 if (!GameManager.Instance.gameWin)
                 {
                     // reset lives and coins
-                    LivesCount = maxLives;
-                   // CoinsCollected = 0;
+                    LivesCount = GameManager.Instance.maxLives;
                 }
                 break;
             default:
@@ -131,6 +183,11 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void StopParticles()
+    {
+        dust.Stop();
     }
 
     private void OnDrawGizmos()

@@ -108,9 +108,9 @@ public class UIManager : MonoBehaviour
         else if (GameScreen == GameScreens.InShop)
         {
             ShowCanvas(2);
-            buyButton.interactable = Player.Instance.CoinsCollected >= Player.Instance.maxCoins &&
-                Player.Instance.LivesCount < Player.Instance.maxLives;
-            OnPlayerLivesChanged(Player.Instance.LivesCount);
+            buyButton.interactable = Player.Instance.CoinsCollected >= GameManager.Instance.maxCoins &&
+                Player.Instance.LivesCount < GameManager.Instance.maxLives;
+            OnPlayerLivesChanged(Player.Instance.LivesCount, false);
             OnPlayerCollectCoins(Player.Instance.CoinsCollected);
         }
         else if (GameScreen == GameScreens.GameOver)
@@ -165,7 +165,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void OnPlayerLivesChanged(int livesCount)
+    private void OnPlayerLivesChanged(int livesCount, bool lostLife)
     {
         this.livesCount.text = livesCount.ToString();
         shopLivesCount.text = livesCount.ToString();
@@ -219,16 +219,18 @@ public class UIManager : MonoBehaviour
 
     public void ReturnToGameButtonPressed()
     {
-        GameScreen = GameScreens.GameOver;
+        GameManager.Instance.GameState = GameStates.InGame;
     }
 
     public void SaveDataButtonPressed()
     {
-        Record record = new Record();
-        record.name = playerNameInputField.text;
-        record.coins = Player.Instance.CoinsCollected;
-        Player.Instance.CoinsCollected = 0;
-        GameManager.Instance.leaderboard.AddToRecords(record);
+        if (!playerNameInputField.text.Equals(""))
+        {
+            Record record = new Record();
+            record.name = playerNameInputField.text;
+            record.coins = Player.Instance.CoinsCollected;
+            GameManager.Instance.leaderboard.AddToRecords(record);
+        }
         GameScreen = GameScreens.OnStart;
     }
 }

@@ -1,16 +1,32 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class CameraEffect : MonoBehaviour
 {
     public Transform cameraResetPosition;
     public Vector2 offset;
+    public float followSpeed = 0.5f;
+    public float shakeTime = 0.5f;
+    public Vector3 shakeForce;
     private Vector2 newCamPosition;
-    private float lerpTime = 0.5f;
+    private Vector2 velocity;
 
     private void Start()
     {
         GameManager.Instance.gameStateChanged += OnGameStateChanged;
+        Player.Instance.playerLivesChanged += OnPlayerLivesChanged;
+    }
+
+    private void OnPlayerLivesChanged(int arg1, bool lifeLost)
+    {
+        if (lifeLost && GameManager.Instance.GameState != GameStates.GameEnds)
+        {
+            ShakeCamera();
+        }
+    }
+
+    private void ShakeCamera()
+    {
+        iTween.ShakePosition(gameObject, shakeForce, shakeTime);
     }
 
     private void OnGameStateChanged(GameStates gameState)
@@ -32,7 +48,7 @@ public class FollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         newCamPosition = (Vector2)Player.Instance.transform.position + offset;
-        lerpTime += Time.fixedDeltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, newCamPosition, lerpTime);
+        transform.position = Vector2.SmoothDamp(transform.position,
+            newCamPosition, ref velocity, followSpeed);
     }
 }

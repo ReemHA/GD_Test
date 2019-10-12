@@ -266,3 +266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraResetPosition: {fileID: 0}
   offset: {x: 4, y: 1.5}
+  followSpeed: 0.5
+  shakeTime: 0.5
+  shakeForce: {x: 0.1, y: 0.1, z: 0}
